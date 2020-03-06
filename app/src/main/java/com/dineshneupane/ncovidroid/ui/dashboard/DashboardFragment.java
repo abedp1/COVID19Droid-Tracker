@@ -8,111 +8,104 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-
 import com.dineshneupane.ncovidroid.R;
 
 public class DashboardFragment extends Fragment {
 
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+  public View onCreateView(@NonNull LayoutInflater inflater,
+    ViewGroup container, Bundle savedInstanceState) {
+    View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-        getActivity().setTitle("nCOVIDroid Info");
+    getActivity().setTitle("nCOVIDroid Info");
 
-        root.findViewById(R.id.git_repo_link).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = "https://github.com/DineshNeupane/nCOVIDroid";
+    root.findViewById(R.id.git_repo_link).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        String url = "https://github.com/DineshNeupane/nCOVIDroid";
 
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-            }
-        });
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+      }
+    });
 
-        root.findViewById(R.id.leaflet).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = "https://github.com/Leaflet/Leaflet";
+    root.findViewById(R.id.leaflet).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        String url = "https://github.com/Leaflet/Leaflet";
 
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-            }
-        });
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+      }
+    });
 
-        root.findViewById(R.id.d3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = "https://github.com/d3/d3";
+    root.findViewById(R.id.d3).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        String url = "https://github.com/d3/d3";
 
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-            }
-        });
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+      }
+    });
 
-        root.findViewById(R.id.gson).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = "https://github.com/google/gson";
+    root.findViewById(R.id.gson).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        String url = "https://github.com/google/gson";
 
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-            }
-        });
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+      }
+    });
 
-        root.findViewById(R.id.mpchart).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = "https://github.com/PhilJay/MPAndroidChart";
+    root.findViewById(R.id.mpchart).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        String url = "https://github.com/PhilJay/MPAndroidChart";
 
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-            }
-        });
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+      }
+    });
 
+    root.findViewById(R.id.async_http).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        String url = "https://github.com/android-async-http/android-async-http";
 
-        root.findViewById(R.id.async_http).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = "https://github.com/android-async-http/android-async-http";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+      }
+    });
 
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-            }
-        });
+    root.findViewById(R.id.md).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        String url = "https://github.com/material-components/material-components-android";
 
-        root.findViewById(R.id.md).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = "https://github.com/material-components/material-components-android";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+      }
+    });
+    root.findViewById(R.id.csse_jhu).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        String url = "https://github.com/CSSEGISandData/COVID-19";
 
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-            }
-        });
-        root.findViewById(R.id.csse_jhu).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = "https://github.com/CSSEGISandData/COVID-19";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+      }
+    });
 
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-            }
-        });
-
-
-
-
-
-        return root;
-    }
+    return root;
+  }
 }
