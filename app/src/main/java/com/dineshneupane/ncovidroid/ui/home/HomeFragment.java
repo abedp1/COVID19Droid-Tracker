@@ -1,5 +1,6 @@
 package com.dineshneupane.ncovidroid.ui.home;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,7 @@ import java.util.stream.Collectors;
 
 public class HomeFragment extends Fragment {
 
-  List<List<String>> formattedRows = new ArrayList<>();
+  private List<List<String>> formattedRows = new ArrayList<>();
 
   private RecyclerView recyclerView;
   private DataListRecyclerAdapter dataListRecyclerAdapter;
@@ -44,7 +45,7 @@ public class HomeFragment extends Fragment {
   private LinearLayout fragmentContent;
   private MaterialButtonToggleGroup materialButtonToggleGroup;
 
-  public static boolean dataExists(String URLName) {
+  private static boolean dataExists(String URLName) {
     try {
       HttpURLConnection.setFollowRedirects(false);
       HttpURLConnection con = (HttpURLConnection) new URL(URLName)
@@ -76,12 +77,9 @@ public class HomeFragment extends Fragment {
     materialButtonToggleGroup = root.findViewById(R.id.toggleGroup);
     prepareData();
 
-    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-      @Override
-      public void onRefresh() {
-        prepareData();
-        materialButtonToggleGroup.check(R.id.btn_countries);
-      }
+    swipeRefreshLayout.setOnRefreshListener(() -> {
+      prepareData();
+      materialButtonToggleGroup.check(R.id.btn_countries);
     });
 
     return root;
@@ -94,7 +92,7 @@ public class HomeFragment extends Fragment {
     List<DataModel> dataModelListCountrywise = new ArrayList<>();
 
     Calendar cal = Calendar.getInstance();
-    DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+    @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
     String today = dateFormat.format(cal.getTime());
     cal.add(Calendar.DATE, -1);
     String yesterday = dateFormat.format(cal.getTime());
@@ -158,7 +156,7 @@ public class HomeFragment extends Fragment {
         Map<String, List<DataModel>> map = dataModelList.stream()
           .collect(Collectors.groupingBy(DataModel::getCountry));
 
-        map.entrySet().stream().forEach(e -> {
+        map.entrySet().forEach(e -> {
             int ccs = 0, deaths = 0, recovered = 0;
             for (int i = 0; i < e.getValue().size(); i++) {
               ccs += Integer.parseInt(e.getValue().get(i).getConfirmedCases());
@@ -171,11 +169,9 @@ public class HomeFragment extends Fragment {
           }
         );
 
-        Collections.sort(dataModelListCountrywise, new Comparator<DataModel>() {
-          public int compare(DataModel obj1, DataModel obj2) {
-            return Integer.valueOf(obj2.getConfirmedCases())
-              .compareTo(Integer.valueOf(obj1.getConfirmedCases())); // To compare integer values
-          }
+        Collections.sort(dataModelListCountrywise, (obj1, obj2) -> {
+          return Integer.valueOf(obj2.getConfirmedCases())
+            .compareTo(Integer.valueOf(obj1.getConfirmedCases())); // To compare integer values
         });
 
         HashSet<String> hashSet = new HashSet<String>();
@@ -184,21 +180,17 @@ public class HomeFragment extends Fragment {
         countriesName.addAll(hashSet);
         setUpRecyclerView(dataModelListCountrywise);
         materialButtonToggleGroup
-          .addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
-            @Override
-            public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId,
-              boolean isChecked) {
-              if (group.getCheckedButtonId() == -1) {
-                group.check(checkedId);
-                setUpRecyclerView(dataModelListCountrywise);
-              }
-                if (group.getCheckedButtonId() == R.id.btn_countries) {
-                    setUpRecyclerView(dataModelListCountrywise);
-                }
-                if (group.getCheckedButtonId() == R.id.btn_provinces) {
-                    setUpRecyclerView(dataModelList);
-                }
+          .addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            if (group.getCheckedButtonId() == -1) {
+              group.check(checkedId);
+              setUpRecyclerView(dataModelListCountrywise);
             }
+              if (group.getCheckedButtonId() == R.id.btn_countries) {
+                  setUpRecyclerView(dataModelListCountrywise);
+              }
+              if (group.getCheckedButtonId() == R.id.btn_provinces) {
+                  setUpRecyclerView(dataModelList);
+              }
           });
 
         tv_totConfirmedCases.setText(String.valueOf(totConfirmedCases));
@@ -206,7 +198,7 @@ public class HomeFragment extends Fragment {
         tv_totalRecovered.setText(String.valueOf(totalRecovered));
 
         double percentage = 100.0 * totalDeaths / totConfirmedCases;
-        String percentageText = "• Fatality Rate: " + String.format("%2.02f", percentage) + "%";
+        @SuppressLint("DefaultLocale") String percentageText = "• Fatality Rate: " + String.format("%2.02f", percentage) + "%";
         tv_fatality.setText(percentageText);
 
       }
